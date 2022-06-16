@@ -1,4 +1,4 @@
-<h1 class="mt-4">Clientes</h1>
+<h1 class="mt-4">Serviços Prestados</h1>
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item active">Consulta</li>
 </ol>
@@ -22,29 +22,49 @@
           class="fa fa-plus"></i> Novo</button>
     </div>
   </div>
+  <form>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="">Nome Cliente</label>
+        <input type="text" name="txtnome" id="txtnome" [(ngModel)]="nome" class="form-control" />
+      </div>
+      <div class="col-md-4">
+        <label for="">Mês</label>
+        <select name="cmbmes" id="cmbmes" [(ngModel)]="mes" class="form-control">
+          <option value=""  ng-selected="selected">Selecione ...</option>
+          <option *ngFor="let mes of meses" [value]="mes">{{ mes }}</option>
+        </select>
+      </div>
+      <div class="col-md-2" style="position:relative;top:32px;">
+        <button type="submit" class="btn btn-outline-primary" (click)="pesquisar()"><i class="fa fa-glass"></i> Pesquisar</button>
+      </div>
+    </div>
+  </form>
   <div class="row">
     <div class="col-md-12">
       <table class="table table-condensed table-hover">
         <thead>
           <tr>
             <th>ID</th>
-            <th>Nome</th>
-            <th>CPF</th>
-            <th>Data do Cadastro</th>
+            <th>Nome do Cliente</th>
+            <th>Data</th>
+            <th>Descrição</th>
+            <th>Preço</th>
             <th>Ações</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let cliente of clientes">
-            <td>{{ cliente.id }}</td>
-            <td>{{ cliente.nome }}</td>
-            <td>{{ cliente.cpf }}</td>
-            <td>{{ cliente.dataCadastro }}</td>
+          <tr *ngFor="let servico of servicos">
+            <td>{{ servico.id }}</td>
+            <td>{{ servico.cliente.nome }}</td>
+            <td>{{ servico.data }}</td>
+            <td>{{ servico.descricao }}</td>
+            <td>{{ servico.preco }}</td>
             <td>
-              <button class="btn btn-primary btn-sm ml-1" routerLink="/clientes-form/{{ cliente.id }}"><i
+              <button class="btn btn-primary btn-sm ml-1" routerLink="/servico-prestado-form/{{ servico.id }}"><i
                   class="fa fa-edit"></i></button>
               <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDelecao"
-                (click)="preparaDelecao(cliente)"><i class="fa fa-trash"></i></button>
+                (click)="preparaDelecao(servico)"><i class="fa fa-trash"></i></button>
             </td>
           </tr>
         </tbody>
@@ -57,10 +77,10 @@
           <div class="modal-header">
             <h4></h4>
           </div>
-          <div class="modal-body" *ngIf="clienteSelecionado">
-            <p>Deseja realmente excluir o cliente?</p>
-            <p>Nome: {{ clienteSelecionado.nome }}</p>
-            <p>CPF: {{ clienteSelecionado.cpf }}</p>
+          <div class="modal-body" *ngIf="servicoSelecionado">
+            <p>Deseja realmente excluir o serviço?</p>
+            <p>Nome: {{ servicoSelecionado.descricao }}</p>
+            <p>CPF: {{ servicoSelecionado.preco }}</p>
           </div>
           <div class="modal-footer">
             <button class="btn btn-primary" data-dismiss="modal" (click)="deletar()">Sim</button>
