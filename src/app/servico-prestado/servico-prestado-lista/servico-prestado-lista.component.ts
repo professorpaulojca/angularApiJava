@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ServicoPrestadoService } from 'src/app/servico-prestado.service';
 import { ServicoPrestado } from '../servico-prestado'
 import { Router } from '@angular/router';
+import { ServicoPrestadoBusca } from './servicoPrestadoBusca';
 
 @Component({
   selector: 'app-servico-prestado-lista',
@@ -13,9 +14,10 @@ export class ServicoPrestadoListaComponent implements OnInit {
   nome: string;
   mes: number;
   meses: number[];
-  servicos: ServicoPrestado[] = [];
+  lista: ServicoPrestadoBusca[] = [];
   servico: ServicoPrestado;
   servicoSelecionado: ServicoPrestado;
+
   mensagemSucesso: String;
   mensagemErro: String;
 
@@ -41,7 +43,15 @@ export class ServicoPrestadoListaComponent implements OnInit {
   }
 
   pesquisar(){
-    console.log(this.mes + " " + this.nome);
+    this.service.buscar(this.nome, this.mes)
+    .subscribe(response => {
+      this.lista = response;
+      if (this.lista.length <= 0){
+        this.mensagemErro = "Nenhum registro encontrado";
+      } else {
+        this.mensagemErro = null;
+      }
+    }
+    );
   }
-
 }

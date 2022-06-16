@@ -22,7 +22,7 @@
           class="fa fa-plus"></i> Novo</button>
     </div>
   </div>
-  <form>
+  <form #consultaForm="ngForm">
     <div class="row">
       <div class="col-md-6">
         <label for="">Nome Cliente</label>
@@ -36,13 +36,13 @@
         </select>
       </div>
       <div class="col-md-2" style="position:relative;top:32px;">
-        <button type="submit" class="btn btn-outline-primary" (click)="pesquisar()"><i class="fa fa-glass"></i> Pesquisar</button>
+        <button type="submit" class="btn btn-outline-primary" (click)="pesquisar()"><i class="fa fa-search"></i> Pesquisar</button>
       </div>
     </div>
   </form>
   <div class="row">
     <div class="col-md-12">
-      <table class="table table-condensed table-hover">
+      <table class="table table-condensed table-hover"  style="margin-top:5px;">
         <thead>
           <tr>
             <th>ID</th>
@@ -54,12 +54,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let servico of servicos">
+          <tr *ngFor="let servico of lista">
             <td>{{ servico.id }}</td>
             <td>{{ servico.cliente.nome }}</td>
             <td>{{ servico.data }}</td>
             <td>{{ servico.descricao }}</td>
-            <td>{{ servico.preco }}</td>
+            <td>{{ servico.valor | currency }}</td>
             <td>
               <button class="btn btn-primary btn-sm ml-1" routerLink="/servico-prestado-form/{{ servico.id }}"><i
                   class="fa fa-edit"></i></button>
@@ -79,8 +79,8 @@
           </div>
           <div class="modal-body" *ngIf="servicoSelecionado">
             <p>Deseja realmente excluir o serviço?</p>
-            <p>Nome: {{ servicoSelecionado.descricao }}</p>
-            <p>CPF: {{ servicoSelecionado.preco }}</p>
+            <p>Descrição: {{ servicoSelecionado.descricao }}</p>
+            <p>Preço: {{ servicoSelecionado.preco }}</p>
           </div>
           <div class="modal-footer">
             <button class="btn btn-primary" data-dismiss="modal" (click)="deletar()">Sim</button>

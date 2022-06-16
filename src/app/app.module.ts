@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +12,10 @@ import { ServicoPrestadoModule } from './servico-prestado/servico-prestado.modul
 
 import { ClientesService } from './clientes.service';
 import { ServicoPrestadoService } from './servico-prestado.service';
+import { registerLocaleData } from '@angular/common';
+
+import ptBr from '@angular/common/locales/pt';
+registerLocaleData(ptBr)
 
 @NgModule({
   declarations: [
@@ -28,7 +32,9 @@ import { ServicoPrestadoService } from './servico-prestado.service';
   ],
   providers: [
     ClientesService,
-    ServicoPrestadoService
+    ServicoPrestadoService,
+    { provide: LOCALE_ID, useValue: 'pt-PT' },
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },
   ],
   bootstrap: [AppComponent]
 })
