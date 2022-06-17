@@ -61,7 +61,7 @@
             <td>{{ servico.descricao }}</td>
             <td>{{ servico.valor | currency }}</td>
             <td>
-              <button class="btn btn-primary btn-sm ml-1" routerLink="/servico-prestado-form/{{ servico.id }}"><i
+              <button class="btn btn-primary btn-sm ml-1" routerLink="/servico-prestado/form/{{ servico.id }}"><i
                   class="fa fa-edit"></i></button>
               <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDelecao"
                 (click)="preparaDelecao(servico)"><i class="fa fa-trash"></i></button>

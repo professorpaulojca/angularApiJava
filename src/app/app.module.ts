@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,15 +16,20 @@ import { ServicoPrestadoService } from './servico-prestado.service';
 import { registerLocaleData } from '@angular/common';
 
 import ptBr from '@angular/common/locales/pt';
+import { LoginComponent } from './login/login.component';
+import { LayoutComponent } from './layout/layout.component';
 registerLocaleData(ptBr)
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpClientModule,
     AppRoutingModule,
     TemplateModule,

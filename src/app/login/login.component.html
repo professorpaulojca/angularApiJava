@@ -1,0 +1,53 @@
+<div id="layoutAthentication">
+  <div id="layoutAuthentication_content">
+    <main>
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-5">
+            <div class="card shadow-lg border-0 rounded-lg mt-5">
+              <div class="card-header">
+                <h3 class="text-center font-weight-light my-4">
+                  {{ cadastrando ? 'Cadastro de novo usuário' : 'Entrar' }}
+
+                </h3>
+              </div>
+              <div class="card-body">
+                <div class="alert alert-danger" *ngif="loginError">
+                  Login e/ou senha incorretos.
+                </div>
+
+                <form #loginForm="ngForm" (submit)="onSubmit();">
+                  <div class="form-group">
+                    <label for="username" class="small mb-1">Login</label>
+                    <input type="text" class="form-control" placeholder="Digite seu login" name="username" [(ngModel)]="username"/>
+                  </div>
+                  <div class="form-group">
+                    <label for="senha" class="small mb-1">Senha</label>
+                    <input type="password" class="form-control" placeholder="Digite sua senha" name="password" [(ngModel)]="password"/>
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-primary btn-block" type="submit" *ngIf="!cadastrando">Entrar</button>
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-success btn-block" type="button" *ngIf="cadastrando">Cadastrar</button>
+                  </div>
+                  <div class="form-group">
+                    <button class="btn btn-danger btn-block" type="button" *ngIf="cadastrando" (click)="cancelaCadastro()">Cancelar</button>
+                  </div>
+                </form>
+              </div>
+              <div class="card-footer text-center">
+                <div class="small">
+                  <a href='#' (click)="preparaCadastrar($event)">
+                    Não possui usuário? Cadastre-se
+                  </a>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
