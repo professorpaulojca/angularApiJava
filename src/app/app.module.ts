@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'
 
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +18,9 @@ import { registerLocaleData } from '@angular/common';
 import ptBr from '@angular/common/locales/pt';
 import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './layout/layout.component';
+import { AuthService } from './auth.service';
+import { TokenInterceptor } from './token.interceptor';
+
 registerLocaleData(ptBr)
 
 @NgModule({
@@ -34,13 +37,20 @@ registerLocaleData(ptBr)
     AppRoutingModule,
     TemplateModule,
     ClientesModule,
-    ServicoPrestadoModule
+    ServicoPrestadoModule,
+
   ],
   providers: [
     ClientesService,
     ServicoPrestadoService,
     { provide: LOCALE_ID, useValue: 'pt-PT' },
     { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
